@@ -1,4 +1,4 @@
-module github.com/hajir.muhajir/shorty-api
+module github.com/hajir.muhajir/shorty-be
 
 go 1.23.8
 

@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/hajir.muhajir/shorty-api/internal/domain"
-	"github.com/hajir.muhajir/shorty-api/internal/repository"
+	"github.com/hajir.muhajir/shorty-be/internal/domain"
+	"github.com/hajir.muhajir/shorty-be/internal/repository"
 	"gorm.io/gorm"
 )
 

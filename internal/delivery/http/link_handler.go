@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/hajir.muhajir/shorty-api/internal/usecase"
+	"github.com/hajir.muhajir/shorty-be/internal/usecase"
 )
 
 func CreateLinkHandler(uc *usecase.LinkUC) gin.HandlerFunc {

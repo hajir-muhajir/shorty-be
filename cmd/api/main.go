@@ -5,12 +5,12 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/hajir.muhajir/shorty-api/internal/config"
-	"github.com/hajir.muhajir/shorty-api/internal/db"
-	httpd "github.com/hajir.muhajir/shorty-api/internal/delivery/http"
-	gormrepo "github.com/hajir.muhajir/shorty-api/internal/repository/gorm"
-	"github.com/hajir.muhajir/shorty-api/internal/service"
-	"github.com/hajir.muhajir/shorty-api/internal/usecase"
+	"github.com/hajir.muhajir/shorty-be/internal/config"
+	"github.com/hajir.muhajir/shorty-be/internal/db"
+	httpd "github.com/hajir.muhajir/shorty-be/internal/delivery/http"
+	gormrepo "github.com/hajir.muhajir/shorty-be/internal/repository/gorm"
+	"github.com/hajir.muhajir/shorty-be/internal/service"
+	"github.com/hajir.muhajir/shorty-be/internal/usecase"
 	"github.com/joho/godotenv"
 )
 

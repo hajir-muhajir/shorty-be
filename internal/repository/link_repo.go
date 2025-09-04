@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/hajir.muhajir/shorty-api/internal/domain"
+	"github.com/hajir.muhajir/shorty-be/internal/domain"
 )
 
 type LinkRepository interface {

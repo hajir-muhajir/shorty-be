@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/hajir.muhajir/shorty-api/internal/usecase"
+	"github.com/hajir.muhajir/shorty-be/internal/usecase"
 )
 
 func RedirectHandler(uc *usecase.RedirectUC) gin.HandlerFunc {

@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/hajir.muhajir/shorty-api/internal/domain"
-	"github.com/hajir.muhajir/shorty-api/internal/repository"
-	"github.com/hajir.muhajir/shorty-api/internal/service"
+	"github.com/hajir.muhajir/shorty-be/internal/domain"
+	"github.com/hajir.muhajir/shorty-be/internal/repository"
+	"github.com/hajir.muhajir/shorty-be/internal/service"
 )
 
 type LinkUC struct {

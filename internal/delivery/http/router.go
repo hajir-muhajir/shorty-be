@@ -2,7 +2,7 @@ package httpd
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/hajir.muhajir/shorty-api/internal/usecase"
+	"github.com/hajir.muhajir/shorty-be/internal/usecase"
 )
 
 func MapRoutes(r *gin.Engine, redirectUc *usecase.RedirectUC, linkUc *usecase.LinkUC){
