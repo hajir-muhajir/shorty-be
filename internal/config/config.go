@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -13,6 +14,17 @@ type Config struct {
 	DBUser  string
 	DBPass  string
 	DBName  string
+
+	JWTSecret string
+	JWTTTLMinutes int
+}
+
+func atoi(s string) int{
+	var n int
+	if _, err:= fmt.Sscanf(s, "%d", &n); err!=nil{
+		log.Panic("Can't parse string to number")
+	}
+	return n
 }
 
 func getEnv(k, d string) string {
@@ -31,6 +43,9 @@ func Load() *Config {
 		DBUser:  getEnv("DB_USER", "user"),
 		DBPass:  getEnv("DB_PASS", ""),
 		DBName:  getEnv("DB_NAME", "shorty"),
+
+		JWTSecret: getEnv("JWT_SECRET", "devsecret"),
+		JWTTTLMinutes: atoi(getEnv("JWT_TTL_MINUTES", "1440")),
 	}
 }
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/hajir.muhajir/shorty-be/internal/config"
@@ -29,36 +29,28 @@ func main()  {
 	defer sqlDB.Close()
 
 	// Repositories
+	userRepo := gormrepo.NewUserGorm(gdb)
 	linkRepo := gormrepo.NewLinkGorm(gdb)
 	clickRepo := gormrepo.NewClickGorm(gdb)
 
+	// services
+	aliasGen := service.NewAliasGenerator()
+	hasher := service.NewHasher()
+	jwtSigner := service.NewJWTSigner(cfg.JWTSecret, time.Duration(cfg.JWTTTLMinutes) * time.Minute)
+
 	// Usecase
 	redirectUC := usecase.NewRedirectUC(linkRepo, clickRepo)
-	aliasGen := service.NewAliasGenerator()
 	linkUC := usecase.NewLinkUC(linkRepo,aliasGen)
+	authUC := usecase.NewAuthUC(userRepo, hasher, jwtSigner)
 
 	// Http Server
 	r := gin.New()
 	r.Use(gin.Recovery())
 	r.Use(gin.Logger())
 
-	r.GET("/health", func(c *gin.Context){
-		var one int
-		if err := gdb.Raw("SELECT 1").Scan(&one). Error; err != nil{
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"status": "failed",
-				"message": "Failed to connect to database",
-			})
-			return
-		}
+	r.GET("/health", httpd.HealthHandler(gdb))
 
-		c.JSON(http.StatusOK, gin.H{
-			"status": "success",
-			"messahe": "Success to connect to database",
-		})
-	})
-
-	httpd.MapRoutes(r, redirectUC, linkUC)
+	httpd.MapRoutes(r, redirectUC, linkUC, authUC)
 
 	log.Printf("Listening on :%s", cfg.AppPort)
 	if err := r.Run(":"+cfg.AppPort); err != nil{
