@@ -9,6 +9,7 @@ import (
 	"github.com/hajir.muhajir/shorty-api/internal/db"
 	httpd "github.com/hajir.muhajir/shorty-api/internal/delivery/http"
 	gormrepo "github.com/hajir.muhajir/shorty-api/internal/repository/gorm"
+	"github.com/hajir.muhajir/shorty-api/internal/service"
 	"github.com/hajir.muhajir/shorty-api/internal/usecase"
 	"github.com/joho/godotenv"
 )
@@ -33,6 +34,8 @@ func main()  {
 
 	// Usecase
 	redirectUC := usecase.NewRedirectUC(linkRepo, clickRepo)
+	aliasGen := service.NewAliasGenerator()
+	linkUC := usecase.NewLinkUC(linkRepo,aliasGen)
 
 	// Http Server
 	r := gin.New()
@@ -55,7 +58,7 @@ func main()  {
 		})
 	})
 
-	httpd.MapRoutes(r, redirectUC)
+	httpd.MapRoutes(r, redirectUC, linkUC)
 
 	log.Printf("Listening on :%s", cfg.AppPort)
 	if err := r.Run(":"+cfg.AppPort); err != nil{
