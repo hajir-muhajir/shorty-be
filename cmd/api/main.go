@@ -50,7 +50,7 @@ func main()  {
 
 	r.GET("/health", httpd.HealthHandler(gdb))
 
-	httpd.MapRoutes(r, redirectUC, linkUC, authUC)
+	httpd.MapRoutes(r, redirectUC, linkUC, authUC, cfg.JWTSecret)
 
 	log.Printf("Listening on :%s", cfg.AppPort)
 	if err := r.Run(":"+cfg.AppPort); err != nil{

@@ -9,7 +9,10 @@ func MapRoutes(r *gin.Engine,
 	redirectUc *usecase.RedirectUC,
 	linkUc *usecase.LinkUC,
 	authUC *usecase.AuthUC,
+	jwtSecret string,
 	){
+
+
 	r.GET("/:alias", RedirectHandler(redirectUc))
 
 	api := r.Group("/api")
@@ -18,6 +21,8 @@ func MapRoutes(r *gin.Engine,
 	api.POST("/auth/register", RegisterHandler(authUC))
 	api.POST("/auth/login", LoginHandler(authUC))
 
+	authGroup := api.Group("/")
+	authGroup.Use(JWTAuthMiddleware(jwtSecret))
 	// links
-	api.POST("/links", CreateLinkHandler(linkUc))
+	authGroup.POST("/links", CreateLinkHandler(linkUc))
 }

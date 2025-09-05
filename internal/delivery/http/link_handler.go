@@ -25,7 +25,13 @@ func CreateLinkHandler(uc *usecase.LinkUC) gin.HandlerFunc {
 			return
 		}
 
-		userID := "0f9d3472-149e-4814-8bd5-33cd2009b472" //hadcode dummy
+		userID := MustUserID(c)
+		if userID == ""{
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"error": "Unauthorized",
+			})
+			return
+		}
 
 		link, err := uc.Create(c.Request.Context(), usecase.CreateLinkRequest{
 			UserID:      userID,
